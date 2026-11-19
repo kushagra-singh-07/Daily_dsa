@@ -1,28 +1,51 @@
-
 class Solution {
-    vector<vector<int>> dp;
 public:
-    int solve(int i,int prev,vector<int>& nums){
-        int n=nums.size();
 
-        for(int i=n-1;i>=0;i--){
-            for(int j=n-1;j>=-1;j--){
-                int take=0;
-                if(j==-1||nums[i]>nums[j]){
-                    take=1+dp[i+1][i+1];
-                }
-                int skip=dp[i+1][j+1];
-                dp[i][j+1]=max(take,skip);
-            }
-        }
-        return dp[0][0];
-    }
     int lengthOfLIS(vector<int>& nums) {
         int n=nums.size();
-        dp.resize(n+1,vector<int>(n+1,0));
-        return solve(0,-1,nums);
+        vector<int> dp(n);
+        for(int i=0;i<n;i++){
+            dp[i]=1;
+        }
+        int ans=0;
+        for(int i=1;i<n;i++){
+            for(int j=i-1;j>=0;j--){
+                if(nums[i]>nums[j]){
+                    dp[i]=max(dp[i],1+dp[j]);
+                }
+            }
+        }    
+        for(int i=0;i<n;i++){
+            ans=max(ans,dp[i]);
+        }
+        return ans;
     }
 };
+
+// class Solution {
+//     vector<vector<int>> dp;
+// public:
+//     int solve(int i,int prev,vector<int>& nums){
+//         int n=nums.size();
+
+//         for(int i=n-1;i>=0;i--){
+//             for(int j=n-1;j>=-1;j--){
+//                 int take=0;
+//                 if(j==-1||nums[i]>nums[j]){
+//                     take=1+dp[i+1][i+1];
+//                 }
+//                 int skip=dp[i+1][j+1];
+//                 dp[i][j+1]=max(take,skip);
+//             }
+//         }
+//         return dp[0][0];
+//     }
+//     int lengthOfLIS(vector<int>& nums) {
+//         int n=nums.size();
+//         dp.resize(n+1,vector<int>(n+1,0));
+//         return solve(0,-1,nums);
+//     }
+// };
 
 
 
@@ -41,7 +64,7 @@ public:
 //         int skip=solve(i+1,prev,nums);
 //         return dp[i][prev+1]=max(skip,take);
 //     }
-//     int lengthOfLIS(vector<int>& nums) {
+//     int lengthOfLIS (vector<int>& nums) {
 //         int n=nums.size();
 //         dp.resize(n,vector<int>(n+1,-1));
 //         return solve(0,-1,nums);
