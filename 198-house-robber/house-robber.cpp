@@ -7,7 +7,7 @@ public:
 
         if(dp[i]!=-1) return dp[i];
         int finalmaximum=INT_MIN;
-        int robcurrent = nums[i] + solve(i+2,n,nums);
+        int robcurrent = nums[i]+solve(i+2,n,nums);
         int skipcurrent = solve(i+1,n,nums);
 
        finalmaximum = max(robcurrent, skipcurrent);
