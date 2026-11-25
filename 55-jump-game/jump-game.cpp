@@ -13,8 +13,8 @@ public:
             return dp[i];
 
         for(int j = 1; j <= nums[i]; j++) {
-            if(solve(i+j, nums))
-                return dp[i] = 1;
+            if(dp[j]=solve(i+j, nums))
+                return true;
         }
 
         return dp[i] = 0;
